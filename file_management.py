@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-""" 
+# -*- coding: utf-8 -*-
+
+""" This file contains some functions to help organise a directory
 """
 import shutil
-import time
 import os
 
 __author__ = "Brice Hilliard"
@@ -14,6 +15,9 @@ __version__ = "1.0.1"
 __maintainer__ = "Brice Hilliard"
 __email__ = "bricehilliard035@gmail.com"
 __status__ = "Production"
+
+# TODO: Contract functions to reduce the number of them
+# TODO: Update the main function to provide better control
 
 directory = 'C:/Users/bnh03/Desktop'
 
