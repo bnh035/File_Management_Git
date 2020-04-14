@@ -1,6 +1,19 @@
+#!/usr/bin/env python
+""" 
+"""
 import shutil
 import time
 import os
+
+__author__ = "Brice Hilliard"
+__copyright__ = ""
+__credits__ = ["Vincent Gustafsson"]
+
+__license__ = "GPL"
+__version__ = "1.0.1"
+__maintainer__ = "Brice Hilliard"
+__email__ = "bricehilliard035@gmail.com"
+__status__ = "Production"
 
 directory = 'C:/Users/bnh03/Desktop'
 
@@ -9,6 +22,7 @@ new_directories = [
     "Unsorted"
 ]
 
+# Folders to be created and associated file extensions
 actions = {
     'Images': ('.png', '.jpg', '.gif', '.svg', '.jpeg', '.dxf'),
     'Videos': ('.mp4', '.mov', '.avi'),
@@ -21,6 +35,7 @@ actions = {
     'Other': None
 }
 
+# Strings to search in file names for associated uni projects
 uni_strings = [
     "ENGG433",
     "ENGG439",
@@ -37,6 +52,7 @@ uni_strings = [
 
 
 def check_directory(dir, search, neg=False):
+    """ Check if directory (dir), contains a file (search) """
     if search in os.listdir(dir):
         return not neg
     else:
@@ -44,6 +60,7 @@ def check_directory(dir, search, neg=False):
 
 
 def create_directories(dir):
+    """ Create the folders from the actions directory """
     for direct in new_directories:
         if check_directory(dir, direct, neg=True):
             os.mkdir(dir + '/' + direct)
@@ -53,6 +70,7 @@ def create_directories(dir):
 
 
 def clear_new_folders(dir):
+    """ Find and collate files in new folders """
     clean_directory = dir + '/Unsorted'
     for file in os.listdir(dir):
         if (('New' in file) or ('New' in file)) and (('folder' in file) or ('Folder' in file)):
@@ -67,6 +85,7 @@ def clear_new_folders(dir):
 
 
 def remove_empties(dir):
+    """ Clear empty folders """
     count = 0
     for file in os.listdir(dir):
         if (file == 'desktop.ini') or ('My ' in file) or (file in actions.keys()):
@@ -82,6 +101,7 @@ def remove_empties(dir):
 
 
 def move_folders(dir, str_array, folder_name):
+    """ Move university files """
     for file in os.listdir(dir):
         if any(uni_string in file for uni_string in str_array):
             source_path = dir + '/' + file
@@ -89,7 +109,8 @@ def move_folders(dir, str_array, folder_name):
             shutil.move(source_path, destination_path)
 
 
-def downloads_organizer(dir):
+def downloads_organiser(dir):
+    """ Organise the specified directory """
     for file in os.listdir(dir):
         if os.path.isfile(directory + '/' + file):
             source_path = dir + '/' + file
@@ -104,11 +125,13 @@ def downloads_organizer(dir):
 
 
 def print_directory(dir):
+    """ Print the directory specified """
     for file in os.listdir(dir):
         print(file)
 
 
 def collate_pycharm(dir):
+    """ Find and collect any pycharm projects """
     count = 0
     if check_directory(dir, "PyCharm", neg=True):
         os.mkdir(dir + '/PyCharm')
@@ -129,7 +152,7 @@ if __name__ == "__main__":
         # collate_pycharm(directory)
         print_directory(directory)
         # create_directories(directory)
-        # downloads_organizer(directory)
+        # downloads_organiser(directory)
         # move_folders(directory, uni_strings, "University")
         # time.sleep(10)
 
